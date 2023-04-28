@@ -22,24 +22,11 @@ plot.ts(out.MICA$U[7700:8000, ], main="Source Signal (X)")
 plot.ts(out.MICA$V[7700:8000, ], main="Source Signal (Y)")
 
 ## ----groupica, echo=TRUE------------------------------------------------------
-out_groupica_pooled_infomax <- GroupICA(data2, J1=6,
-    algorithm="pooled", ica.algorithm="InfoMax")
-
-out_groupica_Calhoun2009_fastica <- GroupICA(data2, J1=6,
-    algorithm="Calhoun2009", ica.algorithm="FastICA")
-
-out_groupica_Pfister2018_amuse <- GroupICA(data2, J1=6,
-    algorithm="Pfister2018", ica.algorithm="AMUSE")
+out_groupica <- GroupICA(data2, J1=6, algorithm="pooled")
 
 ## ----plot_groupica, echo=TRUE, fig.height=4, fig.width=8----------------------
-plot.ts(out_groupica_pooled_infomax$Ss[[1]], main="Source Signal (X)")
-plot.ts(out_groupica_pooled_infomax$Ss[[2]], main="Source Signal (Y)")
-
-plot.ts(out_groupica_Calhoun2009_fastica$Ss[[1]], main="Source Signal (X)")
-plot.ts(out_groupica_Calhoun2009_fastica$Ss[[2]], main="Source Signal (Y)")
-
-plot.ts(out_groupica_Pfister2018_amuse$Ss[[1]], main="Source Signal (X)")
-plot.ts(out_groupica_Pfister2018_amuse$Ss[[2]], main="Source Signal (Y)")
+plot.ts(out_groupica$Ss[[1]], main="Source Signal (X)")
+plot.ts(out_groupica$Ss[[2]], main="Source Signal (Y)")
 
 ## ----sessionInfo, echo=FALSE--------------------------------------------------
 sessionInfo()
