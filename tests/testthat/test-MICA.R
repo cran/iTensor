@@ -4,7 +4,7 @@ Y <- array(runif(15*20), dim=c(15,20))
 
 ## Perform MICA against Simulation Datasets
 J <- 20
-out <- MICA(X, Y, J=J)
+out <- MICA(X, Y, J=J, verbose=TRUE)
 
 ## Test Output object / type
 ### Test O-1: Object
@@ -38,7 +38,7 @@ expect_identical(out$J, J)
 expect_identical(out$eta, 1000*1e-4)
 
 ### Test O-9: verbose
-expect_identical(out$verbose, formals(MICA)$verbose)
+expect_identical(!out$verbose, formals(MICA)$verbose)
 
 ### Test O-10: RecError
 expect_identical(is.vector(out$ABChange), TRUE)
