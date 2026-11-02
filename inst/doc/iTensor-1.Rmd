@@ -32,7 +32,7 @@ dim(data1$X_observed)
 dim(data2$X_observed)
 dim(data3$X_observed)
 dim(data4$X_observed)
-dim(data5$gene) # N < P systems
+dim(data5$X_observed) # N < P systems
 ```
 
 Summary of these data is as follows:
@@ -50,7 +50,7 @@ pairs(data1$X_observed, main="data1")
 pairs(data2$X_observed, main="data2")
 pairs(data3$X_observed, main="data3")
 pairs(data4$X_observed, main="data4")
-dim(data5$gene)
+dim(data5$X_observed)
 ```
 
 To perform and visualize all the ICA at once, here we write some functions as follows.
@@ -180,24 +180,19 @@ pairs(Re(out4$out.JADE$S), main="JADE")
 
 # 5. IPCA in N < P systems
 
-This kind of data is an thin and long matrix, which is a very common data structure in omics data. In `iTensor`, we re-implemented the IPCA function of `mixOmics` package.
+This kind of data is a thin and long matrix (N < P), which is a very common data structure in omics data.
 
 ```{r ica5, echo=TRUE}
-library("mixOmics")
 set.seed(123456)
 
-# mixOmics's IPCA
-res.ipca <- ipca(data5$gene, ncomp=3, mode="deflation")
-
 # iTensor's IPCA
-out5 <- ICA2(X=as.matrix(data5$gene), J=3, algorithm="IPCA")
+out5 <- ICA2(X=data5$X_observed, J=3, algorithm="IPCA")
 ```
 
-We can see the details of source signals as follows. In this data, we can confirm that the IPCA of `mixOmics` and `iTensor` have the same results, except for the order and constant-fold relationships.
+We can see the details of source signals as follows.
 
 ```{r pairs_ica5, echo=TRUE, fig.height=4, fig.width=4}
-pairs(res.ipca$x, main="IPCA (mixOmics)", col=data5$treatment[,"Treatment.Group"], pch=16)
-pairs(out5$S, main="IPCA (iTensor)", col=data5$treatment[,"Treatment.Group"], pch=16)
+pairs(out5$S, main="IPCA (iTensor)", pch=16)
 ```
 
 # Session Information {.unnumbered}

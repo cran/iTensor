@@ -75,9 +75,19 @@
 }
 
 .ICA_Type5 <- function(){
-    env <- new.env()
-    data(liver.toxicity, package="mixOmics", envir=env)
-    env$liver.toxicity
+    # Generate synthetic N < P data for IPCA
+    num_sample <- 50
+    num_features <- 200
+    num_components <- 3
+    S_true <- cbind(
+        runif(num_sample, min = -1, max = 1),
+        rt(num_sample, df = 3),
+        sin(seq_len(num_sample) / 3))
+    A_true <- matrix(
+        rnorm(num_components * num_features),
+        nrow = num_components, ncol = num_features)
+    X_observed <- S_true %*% A_true
+    list(X_observed=X_observed, S_true=S_true, A_true=A_true)
 }
 
 .MICA <- function(){
@@ -143,7 +153,7 @@
 #' ICA_Type2: Time-independent super-gaussian data
 #' ICA_Type3: Data mixed with signals having no time dependence and different kurtosis
 #' ICA_Type4: Time-dependent data
-#' ICA_Type5: Toydata to model IPCA in N < P systems
+#' ICA_Type5: Synthetic N < P data to model IPCA
 #' MICA: Two time-serices data to model MICA
 #' GroupICA: Toydata to model GroupICA
 #' @param model "ICA_Type1", "ICA_Type2", "ICA_Type3", "ICA_Type4",
@@ -161,7 +171,6 @@
 #' data7 <- toyModel("GroupICA")
 #' @importFrom utils data
 #' @importFrom stats runif rt filter
-#' @import mixOmics
 #' @export
 toyModel <- function(model = "ICA_Type1", seeds=123){
     set.seed(seeds)

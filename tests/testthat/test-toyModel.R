@@ -42,9 +42,9 @@ expect_true(all(lapply(data4, nrow) == c(480,480,3)))
 expect_true(all(lapply(data4, ncol) == 3))
 expect_identical(data4, data4_)
 
-expect_true(length(data5) == 4)
-expect_true(all(lapply(data5, nrow) == c(64,64,64,3116)))
-expect_true(all(lapply(data5, ncol) == c(3116,10,4,2)))
+expect_true(length(data5) == 3)
+expect_true(all(lapply(data5, nrow) == c(50,50,3)))
+expect_true(all(lapply(data5, ncol) == c(200,3,200)))
 expect_identical(data5, data5_)
 
 expect_true(length(data6) == 2)

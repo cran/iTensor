@@ -9,14 +9,14 @@ dim(data1$X_observed)
 dim(data2$X_observed)
 dim(data3$X_observed)
 dim(data4$X_observed)
-dim(data5$gene) # N < P systems
+dim(data5$X_observed) # N < P systems
 
 ## ----data2, echo=TRUE, fig.height=4, fig.width=4------------------------------
 pairs(data1$X_observed, main="data1")
 pairs(data2$X_observed, main="data2")
 pairs(data3$X_observed, main="data3")
 pairs(data4$X_observed, main="data4")
-dim(data5$gene)
+dim(data5$X_observed)
 
 ## ----setting, echo=TRUE-------------------------------------------------------
 allICA <- function(X, J){
@@ -95,18 +95,13 @@ pairs(out4$out.ExtInfoMax$S, main="ExtInfoMax")
 pairs(Re(out4$out.JADE$S), main="JADE")
 
 ## ----ica5, echo=TRUE----------------------------------------------------------
-library("mixOmics")
 set.seed(123456)
 
-# mixOmics's IPCA
-res.ipca <- ipca(data5$gene, ncomp=3, mode="deflation")
-
 # iTensor's IPCA
-out5 <- ICA2(X=as.matrix(data5$gene), J=3, algorithm="IPCA")
+out5 <- ICA2(X=data5$X_observed, J=3, algorithm="IPCA")
 
 ## ----pairs_ica5, echo=TRUE, fig.height=4, fig.width=4-------------------------
-pairs(res.ipca$x, main="IPCA (mixOmics)", col=data5$treatment[,"Treatment.Group"], pch=16)
-pairs(out5$S, main="IPCA (iTensor)", col=data5$treatment[,"Treatment.Group"], pch=16)
+pairs(out5$S, main="IPCA (iTensor)", pch=16)
 
 ## ----sessionInfo, echo=FALSE--------------------------------------------------
 sessionInfo()
