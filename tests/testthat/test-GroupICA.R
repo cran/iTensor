@@ -1,8 +1,9 @@
 # Simulation Datasets
+set.seed(54321)
 d <- 6
-X1 <- matrix(runif(20 * d), nrow = 20, ncol = d)
-X2 <- matrix(runif(15 * d), nrow = 15, ncol = d)
-X3 <- matrix(runif(25 * d), nrow = 25, ncol = d)
+X1 <- matrix(runif(200 * d), nrow = 200, ncol = d)
+X2 <- matrix(runif(150 * d), nrow = 150, ncol = d)
+X3 <- matrix(runif(250 * d), nrow = 250, ncol = d)
 
 Xs <- list(X1 = X1, X2 = X2, X3 = X3)
 
